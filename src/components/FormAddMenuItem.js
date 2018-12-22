@@ -1,15 +1,22 @@
 import React, { Component } from 'react';
+import * as API from './services/api';
+import CategorySelector from './CategorySelector';
 
 const INITIAL_STATE = {
   name: '',
   description: '',
-  image: null,
-  imagePreviewUrl: null,
+  image: '',
+  imagePreviewUrl: '',
   alt: '',
   price: '',
+  categories: [],
 };
 export default class FormToAddItem extends Component {
   state = { ...INITIAL_STATE };
+
+  componentDidMount = () => {
+    API.getCategories().then(data => this.setState({ categories: [...data] }));
+  };
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -60,19 +67,26 @@ export default class FormToAddItem extends Component {
       price,
       imagePreviewUrl,
       alt,
+      categories,
     } = this.state;
-    const { categories, ingridients } = this.props;
 
+    const { handleCategoryChange } = this.props;
     return (
       <div className="form-add-item">
         <h2>Добавить рецепт</h2>
-        <form
-          className="form-container"
-          onSubmit={this.handleSubmitForm}
-          category={categories}
-          ingridients={ingridients}
-        >
-          <h2>{name}</h2>
+        <form className="form-container" onSubmit={this.handleSubmitForm}>
+          <div className="form-container__item">
+            <label htmlFor="name" value="name">
+              Название
+              <input
+                type="text"
+                name="name"
+                id="name"
+                value={name}
+                onChange={this.handleChange}
+              />
+            </label>
+          </div>
           <div className="form-container__item">
             <label htmlFor="description" value="description">
               Описание
@@ -105,8 +119,15 @@ export default class FormToAddItem extends Component {
             </label>
           </div>
           <div className="form-container__item">
+            <h4>Выберите категорию</h4>
+            <CategorySelector
+              options={categories}
+              onChange={handleCategoryChange}
+            />
+          </div>
+          <div className="form-container__item">
             <label htmlFor="price" value="price">
-              Price
+              Цена
               <input
                 type="text"
                 name="price"
@@ -115,7 +136,7 @@ export default class FormToAddItem extends Component {
               />
             </label>
           </div>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Добавить" />
         </form>
       </div>
     );
