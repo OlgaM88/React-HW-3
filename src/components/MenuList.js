@@ -3,7 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import MenuItem from './MenuItem';
 
 const MenuList = ({ products, match, location }) => (
-  <ul>
+  <ul className="list-menu">
     {products.map(product => (
       <li key={product.id} className="menu__list-item">
         <Link

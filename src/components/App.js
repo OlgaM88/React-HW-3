@@ -4,6 +4,7 @@ import HomePage from './HomePage';
 import MenuPage from './MenuPage';
 import Nav from './Nav';
 import ItemPage from './ItemPage';
+import NotFoundPage from './NotFoundPage';
 
 const App = () => (
   <>
@@ -12,6 +13,8 @@ const App = () => (
       <Route exact path="/" component={HomePage} />
       <Route exact path="/menu" component={MenuPage} />
       <Route path="/menu/:id" component={ItemPage} />
+
+      <Route component={NotFoundPage} />
     </Switch>
   </>
 );

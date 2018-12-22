@@ -79,7 +79,7 @@ export default class FormToAddItem extends Component {
               />
             </label>
           </div>
-          <input type="submit" value="Submit" />
+          <input type="submit" value="Добавить" />
         </form>
       </div>
     );

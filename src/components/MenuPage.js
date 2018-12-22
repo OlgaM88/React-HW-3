@@ -3,6 +3,7 @@ import queryString from 'query-string';
 import * as API from './services/api';
 import MenuList from './MenuList';
 import CategorySelector from './CategorySelector';
+import FormAddMenuItem from './FormAddMenuItem';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
@@ -11,6 +12,7 @@ export default class MenuPage extends Component {
   state = {
     items: [],
     categories: [],
+    isBtnAddClick: false,
   };
 
   componentDidMount() {
@@ -19,7 +21,7 @@ export default class MenuPage extends Component {
     const category = getCategoryFromProps(this.props);
 
     if (!category) {
-      API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
+      this.getAllMenuItems();
     }
 
     this.getMenuItem(category);
@@ -39,6 +41,10 @@ export default class MenuPage extends Component {
     );
   };
 
+  getAllMenuItems = () => {
+    API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
+  };
+
   handleCategoryChange = category => {
     const { history, location } = this.props;
     history.push({
@@ -47,21 +53,43 @@ export default class MenuPage extends Component {
     });
   };
 
+  handleGoBack = () => {
+    API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
+  };
+
+  handleAddItem = () => {
+    this.setState({ isBtnAddClick: true });
+  };
+
   render() {
-    const { items, categories } = this.state;
+    const { items, categories, isBtnAddClick } = this.state;
     const { match } = this.props;
 
     const currentCategory = getCategoryFromProps(this.props);
     return (
       <div>
         <h2>Меню</h2>
+        <button
+          type="button"
+          className="btn-add-item"
+          onClick={this.handleAddItem}
+        >
+          Добавить рецепт
+        </button>
+        {isBtnAddClick && <FormAddMenuItem />}
         <CategorySelector
           options={categories}
           value={currentCategory}
           onChange={this.handleCategoryChange}
         />
         <MenuList products={items} match={match} />
-        <p>{items.length < 4 && <button type="button">Назад к меню</button>}</p>
+        <p>
+          {items.length < 4 && (
+            <button type="button" onClick={this.handleGoBack}>
+              Назад к меню
+            </button>
+          )}
+        </p>
       </div>
     );
   }

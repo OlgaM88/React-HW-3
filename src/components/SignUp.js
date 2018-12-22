@@ -12,7 +12,7 @@ export default class SignIn extends Component {
 
   handleSubmitForm = e => {
     e.preventDefault();
-    console.log(this.state);
+
     this.reset();
   };
 

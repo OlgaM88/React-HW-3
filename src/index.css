@@ -90,3 +90,9 @@ label input {
 button {
   margin: 20px;
 }
+.btn-add-item {
+  display: block;
+}
+.form-add-item {
+  margin-bottom: 50px;
+}
