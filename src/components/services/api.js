@@ -20,3 +20,8 @@ export const getMenuItemsWithCategory = async category => {
   const response = await axios.get(`/menu?category=${category}`);
   return response.data;
 };
+
+export const addItemMenu = async item => {
+  const response = await axios.post('/menu/', item);
+  return response.data;
+};

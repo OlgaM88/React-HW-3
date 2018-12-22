@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 import * as API from './services/api';
 import MenuList from './MenuList';
 import CategorySelector from './CategorySelector';
-import FormAddMenuItem from './FormAddMenuItem';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
@@ -12,7 +12,6 @@ export default class MenuPage extends Component {
   state = {
     items: [],
     categories: [],
-    isBtnAddClick: false,
   };
 
   componentDidMount() {
@@ -57,26 +56,17 @@ export default class MenuPage extends Component {
     API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
   };
 
-  handleAddItem = () => {
-    this.setState({ isBtnAddClick: true });
-  };
-
   render() {
-    const { items, categories, isBtnAddClick } = this.state;
+    const { items, categories } = this.state;
     const { match } = this.props;
 
     const currentCategory = getCategoryFromProps(this.props);
     return (
       <div>
         <h2>Меню</h2>
-        <button
-          type="button"
-          className="btn-add-item"
-          onClick={this.handleAddItem}
-        >
+        <Link to="/add-item" className="link">
           Добавить рецепт
-        </button>
-        {isBtnAddClick && <FormAddMenuItem />}
+        </Link>
         <CategorySelector
           options={categories}
           value={currentCategory}

@@ -123,9 +123,21 @@
     }
   ],
   "categories": [
-    { "id": 0, "name": "soup" },
-    { "id": 1, "name": "dessert" },
-    { "id": 2, "name": "salad" },
-    { "id": 3, "name": "main course" }
+    {
+      "id": 0,
+      "name": "soup"
+    },
+    {
+      "id": 1,
+      "name": "dessert"
+    },
+    {
+      "id": 2,
+      "name": "salad"
+    },
+    {
+      "id": 3,
+      "name": "main course"
+    }
   ]
 }

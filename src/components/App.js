@@ -5,6 +5,7 @@ import MenuPage from './MenuPage';
 import Nav from './Nav';
 import ItemPage from './ItemPage';
 import NotFoundPage from './NotFoundPage';
+import AddItemPage from './AddItemPage';
 
 const App = () => (
   <>
@@ -12,6 +13,8 @@ const App = () => (
     <Switch>
       <Route exact path="/" component={HomePage} />
       <Route exact path="/menu" component={MenuPage} />
+      <Route exact path="/add-item" component={AddItemPage} />
+
       <Route path="/menu/:id" component={ItemPage} />
 
       <Route component={NotFoundPage} />

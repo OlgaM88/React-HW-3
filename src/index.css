@@ -97,8 +97,10 @@ label input {
 button {
   margin: 20px;
 }
-.btn-add-item {
+.link {
   display: block;
+  margin-bottom: 20px;
+  font-weight: bold;
 }
 .form-add-item {
   margin-bottom: 50px;

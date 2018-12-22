@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import * as API from './services/api';
 import CategorySelector from './CategorySelector';
 
@@ -11,7 +12,7 @@ const INITIAL_STATE = {
   price: '',
   categories: [],
 };
-export default class FormToAddItem extends Component {
+export default class FormAddMenuItem extends Component {
   state = { ...INITIAL_STATE };
 
   componentDidMount = () => {
@@ -34,8 +35,8 @@ export default class FormToAddItem extends Component {
       alt,
       price,
     };
-    const { addItem } = this.props;
-    addItem(newItem);
+
+    API.addItemMenu(newItem);
 
     this.reset();
   };
@@ -136,7 +137,13 @@ export default class FormToAddItem extends Component {
               />
             </label>
           </div>
-          <input type="submit" value="Добавить" />
+          <Link
+            to={{
+              pathname: '/menu',
+            }}
+          >
+            Добавить
+          </Link>
         </form>
       </div>
     );
