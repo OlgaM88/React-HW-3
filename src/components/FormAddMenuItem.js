@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import * as API from './services/api';
 import CategorySelector from './CategorySelector';
 
@@ -11,9 +11,11 @@ const INITIAL_STATE = {
   alt: '',
   price: '',
   categories: [],
+  selectedOption: '',
 };
+
 export default class FormAddMenuItem extends Component {
-  state = { ...INITIAL_STATE };
+  state = { itemAdded: false, ...INITIAL_STATE };
 
   componentDidMount = () => {
     API.getCategories().then(data => this.setState({ categories: [...data] }));
@@ -23,10 +25,14 @@ export default class FormAddMenuItem extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleCategoryChange = selectedOption => {
+    this.setState({ selectedOption });
+  };
+
   handleSubmitForm = e => {
     e.preventDefault();
 
-    const { name, description, image, price, alt } = this.state;
+    const { name, description, image, price, alt, selectedOption } = this.state;
 
     const newItem = {
       name,
@@ -34,15 +40,18 @@ export default class FormAddMenuItem extends Component {
       image,
       alt,
       price,
+      category: selectedOption,
     };
 
     API.addItemMenu(newItem);
 
     this.reset();
+    this.setState({ itemAdded: true });
   };
 
   reset = () => {
     this.setState({ ...INITIAL_STATE });
+    API.getCategories().then(data => this.setState({ categories: [...data] }));
   };
 
   handleImageChange(e) {
@@ -62,6 +71,7 @@ export default class FormAddMenuItem extends Component {
 
   render() {
     const {
+      itemAdded,
       name,
       description,
       image,
@@ -69,9 +79,9 @@ export default class FormAddMenuItem extends Component {
       imagePreviewUrl,
       alt,
       categories,
+      selectedOption,
     } = this.state;
 
-    const { handleCategoryChange } = this.props;
     return (
       <div className="form-add-item">
         <h2>Добавить рецепт</h2>
@@ -123,7 +133,8 @@ export default class FormAddMenuItem extends Component {
             <h4>Выберите категорию</h4>
             <CategorySelector
               options={categories}
-              onChange={handleCategoryChange}
+              value={selectedOption}
+              onChange={this.handleCategoryChange}
             />
           </div>
           <div className="form-container__item">
@@ -137,13 +148,10 @@ export default class FormAddMenuItem extends Component {
               />
             </label>
           </div>
-          <Link
-            to={{
-              pathname: '/menu',
-            }}
-          >
-            Добавить
-          </Link>
+          <div>
+            <input type="submit" className="submit-btn" />
+            {itemAdded && <Redirect to="/menu" />}
+          </div>
         </form>
       </div>
     );

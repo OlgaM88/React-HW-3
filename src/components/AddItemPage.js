@@ -1,4 +1,5 @@
 import React from 'react';
+
 import FormAddMenuItem from './FormAddMenuItem';
 
 const AddItemPage = () => (
