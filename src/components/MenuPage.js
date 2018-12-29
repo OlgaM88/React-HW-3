@@ -64,7 +64,7 @@ export default class MenuPage extends Component {
     return (
       <div>
         <h2>Меню</h2>
-        <Link to="/add-item" className="link">
+        <Link to="/menu/add-item" className="link">
           Добавить рецепт
         </Link>
         <CategorySelector

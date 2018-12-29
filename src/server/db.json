@@ -120,6 +120,15 @@
         "Легкий соевый соус",
         "Кунжутное масло"
       ]
+    },
+    {
+      "name": "Рагу",
+      "description": "с креветками",
+      "image": "",
+      "alt": "",
+      "price": "200",
+      "category": "main course",
+      "id": 9
     }
   ],
   "categories": [
