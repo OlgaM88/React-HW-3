@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import HomePage from './HomePage';
-import MenuPage from './MenuPage';
+import HomePage from '../pages/HomePage';
+import MenuPage from '../pages/MenuPage';
 import Nav from './Nav';
-import ItemPage from './ItemPage';
-import NotFoundPage from './NotFoundPage';
-import AddItemPage from './AddItemPage';
+import ItemPage from '../pages/ItemPage';
+import NotFoundPage from '../pages/NotFoundPage';
+import AddItemPage from '../pages/AddItemPage';
 
 const App = () => (
   <>

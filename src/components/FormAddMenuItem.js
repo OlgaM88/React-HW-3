@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import * as API from './services/api';
+import * as API from '../services/api';
 import CategorySelector from './CategorySelector';
 
 const INITIAL_STATE = {
@@ -11,6 +11,8 @@ const INITIAL_STATE = {
   alt: '',
   price: '',
   categories: [],
+  ingredient: '',
+  ingredients: [],
   selectedOption: '',
 };
 
@@ -32,7 +34,15 @@ export default class FormAddMenuItem extends Component {
   handleSubmitForm = e => {
     e.preventDefault();
 
-    const { name, description, image, price, alt, selectedOption } = this.state;
+    const {
+      name,
+      description,
+      image,
+      price,
+      alt,
+      ingredients,
+      selectedOption,
+    } = this.state;
 
     const newItem = {
       name,
@@ -41,8 +51,9 @@ export default class FormAddMenuItem extends Component {
       alt,
       price,
       category: selectedOption,
+      ingredients,
     };
-
+    console.log(newItem);
     API.addItemMenu(newItem);
 
     this.reset();
@@ -60,7 +71,7 @@ export default class FormAddMenuItem extends Component {
     const reader = new FileReader();
     const file = e.target.files[0];
 
-    reader.onloadend = () => {
+    reader.onloaded = () => {
       this.setState({
         image: file,
         imagePreviewUrl: reader.result,
@@ -79,12 +90,14 @@ export default class FormAddMenuItem extends Component {
       imagePreviewUrl,
       alt,
       categories,
+
       selectedOption,
     } = this.state;
 
     return (
       <div className="form-add-item">
         <h2>Добавить рецепт</h2>
+
         <form className="form-container" onSubmit={this.handleSubmitForm}>
           <div className="form-container__item">
             <label htmlFor="name" value="name">

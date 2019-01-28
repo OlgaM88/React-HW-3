@@ -12,6 +12,7 @@ const CategorySelector = ({ options, value, onChange }) => (
     value={value}
     onChange={e => onChange(e.target.value)}
   >
+    <option value="all">all</option>
     {options.map(item => (
       <option key={item.id} value={item.name}>
         {item.name}

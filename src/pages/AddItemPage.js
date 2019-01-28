@@ -1,6 +1,5 @@
 import React from 'react';
-
-import FormAddMenuItem from './FormAddMenuItem';
+import FormAddMenuItem from '../components/FormAddMenuItem';
 
 const AddItemPage = () => (
   <div>

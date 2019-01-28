@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
-import * as API from './services/api';
-import MenuList from './MenuList';
-import CategorySelector from './CategorySelector';
+import * as API from '../services/api';
+import MenuList from '../components/MenuList';
+import CategorySelector from '../components/CategorySelector';
 
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
@@ -15,23 +15,27 @@ export default class MenuPage extends Component {
   };
 
   componentDidMount() {
-    API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
     API.getCategories().then(data => this.setState({ categories: [...data] }));
     const category = getCategoryFromProps(this.props);
 
-    if (!category) {
-      this.getAllMenuItems();
+    if (!category || category === 'all') {
+      return this.getAllMenuItems();
     }
 
-    this.getMenuItem(category);
+    return this.getMenuItem(category);
   }
 
   componentDidUpdate(prevProps) {
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
-
     if (prevCategory === nextCategory) return;
     this.getMenuItem(nextCategory);
+    window.onpopstate = e => {
+      if (!nextCategory || nextCategory === 'all') {
+        return this.getAllMenuItems();
+      }
+      return this.getMenuItem(nextCategory);
+    };
   }
 
   getMenuItem = category => {
@@ -52,10 +56,6 @@ export default class MenuPage extends Component {
     });
   };
 
-  handleGoBack = () => {
-    API.getAllMenuItems().then(data => this.setState({ items: [...data] }));
-  };
-
   render() {
     const { items, categories } = this.state;
     const { match } = this.props;
@@ -73,13 +73,6 @@ export default class MenuPage extends Component {
           onChange={this.handleCategoryChange}
         />
         <MenuList products={items} match={match} />
-        <p>
-          {items.length < 4 && (
-            <button type="button" onClick={this.handleGoBack}>
-              Назад к меню
-            </button>
-          )}
-        </p>
       </div>
     );
   }

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import * as API from './services/api';
-import SelectedItem from './SelectedItem';
+import * as API from '../services/api';
+import SelectedItem from '../components/SelectedItem';
 
 export default class ItemPage extends Component {
   state = {
