@@ -29,13 +29,11 @@ export default class MenuPage extends Component {
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
     if (prevCategory === nextCategory) return;
+
+    if (!nextCategory || nextCategory === 'all') {
+      this.getAllMenuItems();
+    }
     this.getMenuItem(nextCategory);
-    window.onpopstate = e => {
-      if (!nextCategory || nextCategory === 'all') {
-        return this.getAllMenuItems();
-      }
-      return this.getMenuItem(nextCategory);
-    };
   }
 
   getMenuItem = category => {
@@ -56,6 +54,15 @@ export default class MenuPage extends Component {
     });
   };
 
+  handlegoBack = () => {
+    this.getAllMenuItems();
+    const { history, location } = this.props;
+    history.replace({
+      pathname: location.pathname,
+      search: '',
+    });
+  };
+
   render() {
     const { items, categories } = this.state;
     const { match } = this.props;
@@ -72,6 +79,11 @@ export default class MenuPage extends Component {
           value={currentCategory}
           onChange={this.handleCategoryChange}
         />
+        {currentCategory && (
+          <button type="button" onClick={this.handlegoBack}>
+            Go back to all manu
+          </button>
+        )}
         <MenuList products={items} match={match} />
       </div>
     );
