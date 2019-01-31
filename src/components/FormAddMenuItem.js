@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import * as API from '../services/api';
 import CategorySelector from './CategorySelector';
 
@@ -16,8 +16,8 @@ const INITIAL_STATE = {
   selectedOption: '',
 };
 
-export default class FormAddMenuItem extends Component {
-  state = { itemAdded: false, ...INITIAL_STATE };
+class FormAddMenuItem extends Component {
+  state = { ...INITIAL_STATE };
 
   componentDidMount = () => {
     API.getCategories().then(data => this.setState({ categories: [...data] }));
@@ -33,7 +33,7 @@ export default class FormAddMenuItem extends Component {
 
   handleSubmitForm = e => {
     e.preventDefault();
-
+    const { history } = this.props;
     const {
       name,
       description,
@@ -53,11 +53,14 @@ export default class FormAddMenuItem extends Component {
       category: selectedOption,
       ingredients,
     };
-    console.log(newItem);
-    API.addItemMenu(newItem);
+    console.log(history);
 
+    API.addItemMenu(newItem).then(data =>
+      history.replace({
+        pathname: '/menu',
+      }),
+    );
     this.reset();
-    this.setState({ itemAdded: true });
   };
 
   reset = () => {
@@ -82,7 +85,6 @@ export default class FormAddMenuItem extends Component {
 
   render() {
     const {
-      itemAdded,
       name,
       description,
       image,
@@ -163,10 +165,10 @@ export default class FormAddMenuItem extends Component {
           </div>
           <div>
             <input type="submit" className="submit-btn" />
-            {itemAdded && <Redirect to="/menu" />}
           </div>
         </form>
       </div>
     );
   }
 }
+export default withRouter(FormAddMenuItem);

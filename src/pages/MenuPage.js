@@ -12,25 +12,25 @@ export default class MenuPage extends Component {
   state = {
     items: [],
     categories: [],
+    selectedOption: '',
   };
 
   componentDidMount() {
     API.getCategories().then(data => this.setState({ categories: [...data] }));
     const category = getCategoryFromProps(this.props);
 
-    if (!category || category === 'all') {
+    if (!category) {
       return this.getAllMenuItems();
     }
-
     return this.getMenuItem(category);
   }
 
   componentDidUpdate(prevProps) {
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
-    if (prevCategory === nextCategory) return;
 
-    if (!nextCategory || nextCategory === 'all') {
+    if (prevCategory === nextCategory) return;
+    if (prevCategory !== nextCategory) {
       this.getAllMenuItems();
     }
     this.getMenuItem(nextCategory);
@@ -57,14 +57,15 @@ export default class MenuPage extends Component {
   handlegoBack = () => {
     this.getAllMenuItems();
     const { history, location } = this.props;
-    history.replace({
+    history.push({
       pathname: location.pathname,
       search: '',
     });
+    this.setState({ selectedOption: '' });
   };
 
   render() {
-    const { items, categories } = this.state;
+    const { items, categories, selectedOption } = this.state;
     const { match } = this.props;
 
     const currentCategory = getCategoryFromProps(this.props);
@@ -76,12 +77,13 @@ export default class MenuPage extends Component {
         </Link>
         <CategorySelector
           options={categories}
-          value={currentCategory}
+          value={selectedOption}
           onChange={this.handleCategoryChange}
+          onSubmit={this.handleResetInput}
         />
         {currentCategory && (
           <button type="button" onClick={this.handlegoBack}>
-            Go back to all manu
+            Вернутся к меню
           </button>
         )}
         <MenuList products={items} match={match} />

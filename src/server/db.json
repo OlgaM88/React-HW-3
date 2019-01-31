@@ -128,87 +128,18 @@
       "alt": "",
       "price": "200",
       "category": "main course",
+      "ingredients": [],
       "id": 9
     },
     {
-      "name": "Рагу",
-      "description": "с креветками",
-      "image": "",
-      "alt": "",
-      "price": "50",
-      "category": "main course",
-      "ingredients": [],
-      "id": 10
-    },
-    {
-      "name": "Рагу",
-      "description": "с креветками",
-      "image": "",
-      "alt": "",
-      "price": "35",
-      "category": "",
-      "ingredients": ["vbv,bvnbvnb"],
-      "id": 11
-    },
-    {
-      "name": "",
-      "description": "",
-      "image": "",
-      "alt": "",
-      "price": "",
-      "category": "",
-      "ingredients": [],
-      "id": 12
-    },
-    {
-      "name": "Рагу",
-      "description": "с креветками",
-      "image": "",
-      "alt": "",
-      "price": "50",
-      "category": "main course",
-      "ingredients": [],
-      "id": 13
-    },
-    {
-      "name": "Рагу",
-      "description": "",
-      "image": "",
-      "alt": "",
-      "price": "50",
-      "category": "main course",
-      "ingredients": ["gfggggg"],
-      "id": 14
-    },
-    {
-      "name": "Курица",
+      "name": "Салат",
       "description": "с грибами",
       "image": "",
       "alt": "",
-      "price": "45",
-      "category": "",
+      "price": "50",
+      "category": "salad",
       "ingredients": [],
-      "id": 15
-    },
-    {
-      "name": "Рагу",
-      "description": "с креветками",
-      "image": "",
-      "alt": "",
-      "price": "698",
-      "category": "",
-      "ingredients": [],
-      "id": 16
-    },
-    {
-      "name": "Рагу",
-      "description": "с креветками",
-      "image": "",
-      "alt": "",
-      "price": "200",
-      "category": "main course",
-      "ingredients": [],
-      "id": 17
+      "id": 10
     }
   ],
   "categories": [
