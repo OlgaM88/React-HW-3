@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import MenuItem from './MenuItem';
+import MenuItem from '../MenuItem';
 
-const MenuList = (products = [], match, location, addtoCard) => (
+const MenuList = ({ products = [], match, location }) => (
   <ul className="list-menu">
     {products.map(product => (
       <li key={product.id} className="menu__list-item">
@@ -16,8 +16,6 @@ const MenuList = (products = [], match, location, addtoCard) => (
             imageUrl={product.image}
             name={product.name}
             price={product.price}
-            id={product.id}
-            addToCart={addtoCard}
           />
         </Link>
       </li>

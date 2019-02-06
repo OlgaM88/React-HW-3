@@ -145,18 +145,22 @@
   "categories": [
     {
       "id": 0,
-      "name": "soup"
+      "name": "all"
     },
     {
       "id": 1,
-      "name": "dessert"
+      "name": "soup"
     },
     {
       "id": 2,
-      "name": "salad"
+      "name": "dessert"
     },
     {
       "id": 3,
+      "name": "salad"
+    },
+    {
+      "id": 4,
       "name": "main course"
     }
   ]

@@ -1,0 +1,11 @@
+.navMenu {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  max-width: 600px;
+  width: 100%;
+  align-items: center;
+}
+.navMenu li {
+  text-transform: uppercase;
+}

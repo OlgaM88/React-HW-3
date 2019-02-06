@@ -13,9 +13,7 @@ const CategorySelector = ({ options, value, onChange }) => (
       style={styles.select}
       value={value}
       onChange={e => onChange(e.target.value)}
-      placeholder="Select ..."
     >
-      <option value="all">--</option>
       {options.map(item => (
         <option key={item.id} value={item.name}>
           {item.name}

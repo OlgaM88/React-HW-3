@@ -1,10 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MenuContainer from '../components/MenuList/MenuContainer';
+/*
 import queryString from 'query-string';
 import { Link } from 'react-router-dom';
 import * as API from '../services/api';
-import MenuList from '../components/MenuList';
-import CategorySelector from '../components/CategorySelector';
 
+import CategorySelector from '../components/CategorySelector'; */
+/*
 const getCategoryFromProps = props =>
   queryString.parse(props.location.search).category;
 
@@ -12,15 +14,18 @@ export default class MenuPage extends Component {
   state = {
     items: [],
     categories: [],
-    selectedOption: '',
   };
 
   componentDidMount() {
+    const { history, location } = this.props;
     API.getCategories().then(data => this.setState({ categories: [...data] }));
     const category = getCategoryFromProps(this.props);
-
+    console.log(category);
     if (!category) {
-      return this.getAllMenuItems();
+      return history.replace({
+        pathname: location.pathname,
+        search: 'category=all',
+      });
     }
     return this.getMenuItem(category);
   }
@@ -28,16 +33,15 @@ export default class MenuPage extends Component {
   componentDidUpdate(prevProps) {
     const prevCategory = getCategoryFromProps(prevProps);
     const nextCategory = getCategoryFromProps(this.props);
-
     if (prevCategory === nextCategory) return;
-    if (prevCategory !== nextCategory) {
-      this.getAllMenuItems();
-    }
     this.getMenuItem(nextCategory);
   }
 
   getMenuItem = category => {
-    API.getMenuItemsWithCategory(category).then(data =>
+    if (category === 'all') {
+      return this.getAllMenuItems();
+    }
+    return API.getMenuItemsWithCategory(category).then(data =>
       this.setState({ items: [...data] }),
     );
   };
@@ -54,18 +58,8 @@ export default class MenuPage extends Component {
     });
   };
 
-  handlegoBack = () => {
-    this.getAllMenuItems();
-    const { history, location } = this.props;
-    history.push({
-      pathname: location.pathname,
-      search: '',
-    });
-    this.setState({ selectedOption: '' });
-  };
-
   render() {
-    const { items, categories, selectedOption } = this.state;
+    const { items, categories } = this.state;
     const { match } = this.props;
 
     const currentCategory = getCategoryFromProps(this.props);
@@ -77,17 +71,26 @@ export default class MenuPage extends Component {
         </Link>
         <CategorySelector
           options={categories}
-          value={selectedOption}
+          value={currentCategory}
           onChange={this.handleCategoryChange}
-          onSubmit={this.handleResetInput}
         />
-        {currentCategory && (
-          <button type="button" onClick={this.handlegoBack}>
-            Вернутся к меню
+        {currentCategory !== 'all' && (
+          <button
+            type="button"
+            onClick={() => this.handleCategoryChange('all')}
+          >
+            К главному меню
           </button>
         )}
-        <MenuList products={items} match={match} />
+        <MenuContainer products={items} match={match} />
       </div>
     );
   }
-}
+} */
+
+const MenuPage = () => (
+  <div>
+    <MenuContainer />
+  </div>
+);
+export default MenuPage;
