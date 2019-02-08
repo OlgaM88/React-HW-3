@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import MenuItem from '../MenuItem';
 
-const MenuList = ({ products = [], match, location }) => (
+const MenuView = ({ products = [], match, location }) => (
   <ul className="list-menu">
     {products.map(product => (
       <li key={product.id} className="menu__list-item">
@@ -22,4 +22,4 @@ const MenuList = ({ products = [], match, location }) => (
     ))}
   </ul>
 );
-export default withRouter(MenuList);
+export default withRouter(MenuView);

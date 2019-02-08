@@ -1,4 +1,4 @@
-import { actionTypes } from '../actions';
+import actionTypes from '../menuActionTypes';
 
 const initialState = {
   items: [],
@@ -6,28 +6,24 @@ const initialState = {
   loading: false,
 };
 
-export default function productsReducer(
-  state = initialState,
-  { type, payload },
-) {
-  switch (type) {
+export default function menuReducer(state = initialState, action) {
+  switch (action.type) {
     case actionTypes.FETCH_PRODUCTS_REQUEST:
-      return { ...state, error: null, loading: true };
+      return { ...state, items: [], error: null, loading: true };
 
     case actionTypes.FETCH_PRODUCTS_SUCCESS:
       return {
         ...state,
-        loading: false,
-        items: payload.products,
+        items: action.payload,
         error: null,
+        loading: false,
       };
 
     case actionTypes.FETCH_PRODUCTS_ERROR:
       return {
         ...state,
         loading: false,
-        error: payload.error,
-        items: [],
+        error: action.payload,
       };
 
     default:

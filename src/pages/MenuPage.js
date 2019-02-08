@@ -88,7 +88,7 @@ export default class MenuPage extends Component {
   }
 } */
 
-const MenuPage = () => (
+const MenuPage = props => (
   <div>
     <MenuContainer />
   </div>
