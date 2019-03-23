@@ -1,16 +1,40 @@
+import { normalize } from 'normalizr';
+import ProductsSchema from './schemas';
 import types from './menuActionTypes';
 
 const fetchRequest = request => ({
   type: types.FETCH_PRODUCTS_REQUEST,
 });
-const fetchProducts = products => ({
-  type: types.FETCH_PRODUCTS_SUCCESS,
-  payload: products,
-});
+
+const fetchSuccess = (products, categories) => {
+  const normalizedProducts = normalize(products, [ProductsSchema]);
+
+  return {
+    type: types.FETCH_PRODUCTS_SUCCESS,
+    payload: {
+      ids: {
+        products: Object.keys(normalizedProducts.entities.products),
+      },
+      entities: normalizedProducts.entities,
+    },
+  };
+};
+
 const fetchFailure = error => ({
   type: types.FETCH_PRODUCTS_ERROR,
   payload: error,
 });
+
+const fetchCategoriesSuccess = categories => ({
+  type: 'types.FETCH_CATEGORIES',
+  payload: categories,
+});
+
+const categorySelect = category => ({
+  type: 'SELECT_CATEGORY',
+  payload: category,
+});
+
 const fetchProduct = () => ({
   type: types.FETCH_PRODUCT_REQUEST,
 });
@@ -39,10 +63,12 @@ const addProductSuccess = item => ({
 export default {
   fetchRequest,
   fetchProduct,
-  fetchProducts,
+  fetchSuccess,
   fetchFailure,
   fetchProductFailure,
   fetchProductSuccess,
   addToCart,
   addProductSuccess,
+  fetchCategoriesSuccess,
+  categorySelect,
 };

@@ -1,32 +1,38 @@
+import { combineReducers } from 'redux';
 import actionTypes from '../menuActionTypes';
 
-const initialState = {
-  items: [],
-  error: null,
-  loading: false,
-};
-
-export default function menuReducer(state = initialState, action) {
-  switch (action.type) {
-    case actionTypes.FETCH_PRODUCTS_REQUEST:
-      return { ...state, items: [], error: null, loading: true };
-
+function menuReducer(state = [], { type, payload }) {
+  switch (type) {
     case actionTypes.FETCH_PRODUCTS_SUCCESS:
-      return {
-        ...state,
-        items: action.payload,
-        error: null,
-        loading: false,
-      };
-
-    case actionTypes.FETCH_PRODUCTS_ERROR:
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
+      return payload.ids.products;
 
     default:
       return state;
   }
 }
+
+function categoriesReducer(state = [], { type, payload }) {
+  switch (type) {
+    case actionTypes.FETCH_CATEGORIES:
+      return payload;
+
+    default:
+      return state;
+  }
+}
+
+function selectedCategory(state = null, { type, payload }) {
+  switch (type) {
+    case actionTypes.SELECT_CATEGORY:
+      return payload;
+
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  ids: menuReducer,
+  categories: categoriesReducer,
+  category: selectedCategory,
+});

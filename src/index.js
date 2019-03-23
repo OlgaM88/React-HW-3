@@ -7,10 +7,10 @@ import store from './redux/store';
 import './index.css';
 
 render(
-  <BrowserRouter>
-    <Provider store={store}>
+  <Provider store={store}>
+    <BrowserRouter>
       <Route component={App} />
-    </Provider>
-  </BrowserRouter>,
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('root'),
 );

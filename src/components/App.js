@@ -18,7 +18,6 @@ const App = () => (
       <Route exact path="/menu" component={MenuPage} />
       <Route exact path="/about" component={AboutPage} />
       <Route exact path="/delivery" component={DeliveryPage} />
-
       <Route exact path="/menu/:add-item" component={AddItemPage} />
 
       <Route path="/menu/:id" component={ItemPage} />

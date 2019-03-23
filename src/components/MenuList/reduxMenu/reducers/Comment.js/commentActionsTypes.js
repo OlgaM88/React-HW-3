@@ -1,0 +1,9 @@
+const FETCH_COMMENTS = 'comment/FETCH_COMMENTS';
+const ADD_SUCCESS = 'notes/ADD_SUCCESS';
+const DELETE_SUCCESS = 'notes/DELETE_SUCCESS';
+
+export default {
+  FETCH_COMMENTS,
+  ADD_SUCCESS,
+  DELETE_SUCCESS,
+};

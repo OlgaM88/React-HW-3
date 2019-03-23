@@ -6,7 +6,7 @@ const styles = {
   },
 };
 
-const CategorySelector = ({ options, value, onChange }) => (
+const CategorySelector = ({ categories, value, onChange }) => (
   <div>
     <h4>Выбрать категорию блюда:</h4>
     <select
@@ -14,7 +14,7 @@ const CategorySelector = ({ options, value, onChange }) => (
       value={value}
       onChange={e => onChange(e.target.value)}
     >
-      {options.map(item => (
+      {categories.map(item => (
         <option key={item.id} value={item.name}>
           {item.name}
         </option>

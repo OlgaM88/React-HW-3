@@ -41,7 +41,6 @@ export default class UserMenu extends Component {
       evt.target,
     );
 
-
     const { isDropDownOpen } = this.state;
     if (isDropDownOpen && !isTargetInsideContainer) {
       this.closeDropdown();
